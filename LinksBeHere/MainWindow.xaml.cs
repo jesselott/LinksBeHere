@@ -99,9 +99,14 @@ namespace LinksBeHere
 
         private void hyperLinkFinderBtn_Click(object sender, RoutedEventArgs e)
         {
+            // call the helper class to utilize a streamreader / writer
             LinkFinder HyperFinder = new LinkFinder(fileLocTextBox.Text, outputLocTextBox.Text);
             HyperFinder.FindLinks();
-            
+
+            // reset the fields
+            MessageBox.Show("Links have been written to the specified location.", "Operation(s) complete", MessageBoxButton.OK);
+            outputLocTextBox.Text = "c:\\";
+            fileLocTextBox.Text = "c:\\";
         }
     }
 }
