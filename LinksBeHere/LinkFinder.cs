@@ -10,19 +10,56 @@ namespace LinksBeHere
 {
     class LinkFinder
     {
-        public static void findLinks()
-        {
-            string chatLogPath = @"C:\Users\wwstudent\Desktop\skypeChatHistory_8Feb17.txt";
+        // fields
+        private string linkReadPath = "";
+        private string linkWritePath = "";
 
-            StreamReader chatLogSR = new StreamReader(chatLogPath);
-            StreamWriter linkFinder = new StreamWriter("C:\\Users\\wwstudent\\Desktop\\skypeLinks.rtf");
+        // properties
+        public string LinkReadPath
+        {
+            get
+            {
+                return this.linkReadPath;
+            }
+            set
+            {
+                this.linkReadPath = LinkReadPath;
+            }
+        }
+
+       
+        public string LinkWritePath
+        {
+            get
+            {
+                return this.linkWritePath;
+            }
+            set
+            {
+                this.linkWritePath = LinkWritePath;
+            }
+        }
+
+        // Method(s)
+        public void FindLinks()
+        {
+            StreamReader textReader = new StreamReader(linkReadPath);
+            StreamWriter linkFinder = new StreamWriter(linkWritePath);
+
             Regex urlFinder = new Regex(@"(ftp | https ?)://[^\s]+", RegexOptions.IgnoreCase);
-            MatchCollection links = urlFinder.Matches(chatLogSR.ReadToEnd());
+            MatchCollection links = urlFinder.Matches(textReader.ReadToEnd());
             foreach (Match match in links)
             {
-                Console.WriteLine(match);
                 linkFinder.WriteLine(match);
+                Console.WriteLine(match);
             }
+        }
+
+        // constructor(s)
+        public LinkFinder(string readPath, string writePath)
+        {
+            this.linkReadPath = readPath;
+            this.linkWritePath = writePath;
         }
     }
 }

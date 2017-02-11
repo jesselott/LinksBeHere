@@ -30,8 +30,8 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <Button Content="Browse for File" Margin="5, 10, 5, 10" Grid.Row="0" ></Button>
-            <Button Content="Browse for Output" Margin="5, 10, 5, 10" Grid.Row="1" ></Button>
+            <Button Content="Browse for File" Name="fileLocatorBtn" Margin="5, 10, 5, 10" Grid.Row="0" Click="fileLocatorBtn_Click" ></Button>
+            <Button Content="Save Output As" Name="outLocatorBtn"  Margin="5, 10, 5, 10" Grid.Row="1" Click="outLocatorBtn_Click" ></Button>
 
         </Grid>
 
@@ -44,14 +44,14 @@
 
             <StackPanel Orientation="Vertical" Grid.Row="0">
                 <Label Margin="0,0,0,0" Content="Enter File Location"></Label>
-                <TextBox Name="fileLocTextBox" Text="C:/" GotFocus="fileLocTextBox_GotFocus" LostFocus="fileLocTextBox_LostFocus" />
+                <TextBox Name="fileLocTextBox" Text="c:\" GotFocus="fileLocTextBox_GotFocus" LostFocus="fileLocTextBox_LostFocus" />
             </StackPanel>
             <StackPanel Orientation="Vertical" Grid.Row="1">
                 <Label Grid.Row="1" Margin="0,0,0,0" Content="Enter Output Location"></Label>
-                <TextBox Name="outputLocTextBox" Text="C:/" GotFocus="outputLocTextBox_GotFocus" LostFocus="outputLocTextBox_LostFocus" />
+                <TextBox Name="outputLocTextBox" Text="c:\" GotFocus="outputLocTextBox_GotFocus" LostFocus="outputLocTextBox_LostFocus" />
             </StackPanel>
 
-            <Button Grid.Row="2" Margin="15" Content="Go Get Your Hyperlinks!"></Button>
+            <Button Name="hyperLinkFinderBtn" Grid.Row="2" Margin="15" Content="Go Get Your Hyperlinks!" Click="hyperLinkFinderBtn_Click"></Button>
 
         </Grid>
 
