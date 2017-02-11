@@ -45,14 +45,16 @@ namespace LinksBeHere
         {
             StreamReader textReader = new StreamReader(linkReadPath);
             StreamWriter linkFinder = new StreamWriter(linkWritePath);
+            
 
-            Regex urlFinder = new Regex(@"(ftp | https ?)://[^\s]+", RegexOptions.IgnoreCase);
+            Regex urlFinder = new Regex(@"((https?|ftp|file)\://|www.)[A-Za-z0-9\.\-]+(/[A-Za-z0-9\?\&\=;\+!'\(\)\*\-\._~%]*)*", RegexOptions.IgnoreCase);
             MatchCollection links = urlFinder.Matches(textReader.ReadToEnd());
             foreach (Match match in links)
             {
                 linkFinder.WriteLine(match);
-                Console.WriteLine(match);
+                linkFinder.Flush();
             }
+            
         }
 
         // constructor(s)

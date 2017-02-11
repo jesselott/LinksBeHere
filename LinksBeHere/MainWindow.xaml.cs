@@ -71,7 +71,7 @@ namespace LinksBeHere
 
         private void helperTextBlock_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            MessageBox.Show("This tool simply finds all of the hyperlinks in a text file and prints the output as .txt in the designated output location", "This is neat!", MessageBoxButton.OK);
+            MessageBox.Show("This tool simply finds all of the hyperlinks in a text file and prints the output to a .txt file in the designated output location", "This is neat!", MessageBoxButton.OK);
         }
 
         private void fileLocatorBtn_Click(object sender, RoutedEventArgs e)
