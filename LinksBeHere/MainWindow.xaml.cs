@@ -24,5 +24,49 @@ namespace LinksBeHere
         {
             InitializeComponent();
         }
+
+        
+
+        private void outputLocTextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            outputLocTextBox.Text = "";
+        }
+
+        private void outputLocTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (outputLocTextBox.Text == "")
+            {
+                outputLocTextBox.Text = "C:/";
+            }
+        }
+
+        private void fileLocTextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            fileLocTextBox.Text = "";
+        }
+
+        private void fileLocTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (fileLocTextBox.Text == "")
+            {
+                fileLocTextBox.Text = "C:/";
+            }
+        }
+
+        private void helperTextBlock_MouseEnter(object sender, MouseEventArgs e)
+        {
+            helperTextBlock.Foreground = new SolidColorBrush(Colors.Blue);
+        }
+
+        private void helperTextBlock_MouseLeave(object sender, MouseEventArgs e)
+        {
+            helperTextBlock.Foreground = new SolidColorBrush(Colors.Black);
+        }
+
+        private void helperTextBlock_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            MessageBox.Show("This tool simply finds all of the hyperlinks in a text file and prints the output as .txt in the designated output location", "This is neat!", MessageBoxButton.OK);
+        }
+
     }
 }
