@@ -113,6 +113,8 @@ namespace LinksBeHere
             catch (Exception)
             {
                 MessageBox.Show("Something went wrong. Pleae enter a valid file path for both entries.", "Oops!", MessageBoxButton.OK);
+                outputLocTextBox.Text = "c:\\";
+                fileLocTextBox.Text = "c:\\";
             }           
             
         }
