@@ -20,13 +20,15 @@
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0" Grid.Column="1" Text="Hyperlinks Found" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <RichTextBox x:Name="linkList_rtb" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top">
-            <FlowDocument>
-                <Paragraph>
-                    <Run Text="Links go here"/>
-                </Paragraph>
-            </FlowDocument>
-        </RichTextBox>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" >
+            <RichTextBox x:Name="linkList_rtb" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top">
+                <FlowDocument>
+                    <Paragraph>
+                        <Run Text=""/>
+                    </Paragraph>
+                </FlowDocument>
+            </RichTextBox>
+        </ScrollViewer>
 
     </Grid>
 
