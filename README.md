@@ -1,6 +1,8 @@
 # LinksBeHere
 A desktop application to find any hyperlinks that are given in a .txt document and then return those links.
 
+[LinkFinder Image](http://i.imgur.com/TXmwE0q.png)
+
 In one of my classes we have a group skype chat where we talk smack and share resources. A lot of those resources are lost in the void as soon as the conversation continues. This is a tool to remedy that.
 
 The idea is that I can dump the entire chat log, time stamps and all, into a text file. I can then use the link finder application to go through and find all of the hyperlinks, including gifs and images, and then output those into a readable format. 
