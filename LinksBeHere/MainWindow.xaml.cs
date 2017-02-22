@@ -112,7 +112,7 @@ namespace LinksBeHere
 
                 foreach (var item in HyperFinder.listOfLinks)
                 {
-                    linksFound.linkList_rtb.AppendText(item.ToString());
+                    linksFound.listOfLinks_lv.Items.Add(item.ToString());
                 }
 
                 linksFound.ShowDialog();

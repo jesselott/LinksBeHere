@@ -8,6 +8,10 @@
         Title="Links Found" Height="300" Width="300">
 
     <Grid>
+        <Grid.Resources>
+            
+        </Grid.Resources>
+        
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="4*" />
@@ -20,8 +24,23 @@
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0" Grid.Column="1" Text="Hyperlinks Found" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" >
-            <RichTextBox x:Name="linkList_rtb" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top">
+        <ListView Margin="10" Name="listOfLinks_lv" Grid.Column="1" Grid.Row="1">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="URL"   >
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding URL}" TextDecorations="Underline" Foreground="Blue" Cursor="Hand" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Description"  />                                       
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <!--
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Grid.Column="1" Grid.Row="1" >
+            <RichTextBox x:Name="linkList_rtb"  HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" >
                 <FlowDocument>
                     <Paragraph>
                         <Run Text=""/>
@@ -29,6 +48,7 @@
                 </FlowDocument>
             </RichTextBox>
         </ScrollViewer>
+        -->
 
     </Grid>
 
