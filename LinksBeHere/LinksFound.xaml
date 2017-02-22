@@ -20,10 +20,10 @@
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0" Grid.Column="1" Text="Hyperlinks Found" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <RichTextBox x:Name="linkList_rtb" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top">
+        <RichTextBox x:Name="linkList_rtb" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Stretch">
             <FlowDocument>
                 <Paragraph>
-                    <Run Text="Links go here"/>
+                    <Run Text=""/>
                 </Paragraph>
             </FlowDocument>
         </RichTextBox>
