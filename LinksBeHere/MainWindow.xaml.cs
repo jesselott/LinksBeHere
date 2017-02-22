@@ -101,14 +101,31 @@ namespace LinksBeHere
         {
             try
             {
-                // call the helper class to utilize a streamreader / writer
+                //// call the helper class to utilize a streamreader / writer
                 LinkFinder HyperFinder = new LinkFinder(fileLocTextBox.Text, outputLocTextBox.Text);
                 HyperFinder.FindLinks();
 
-                // reset the fields
-                MessageBox.Show("Links have been written to the specified location.", "Operation(s) complete", MessageBoxButton.OK);
+                // instantiate and open the LinksFound window
+                LinksFound linksFound = new LinksFound();
+                linksFound.Owner = this;
+                
+
+                foreach (var item in HyperFinder.listOfLinks)
+                {
+                    linksFound.linkList_rtb.Document.Blocks.Add(new Paragraph(new Run($"{item}")));
+                }
+
+                linksFound.ShowDialog();
+
+                // reset the text fields
+                // TODO: put this in a separate button and method
                 outputLocTextBox.Text = "c:\\";
                 fileLocTextBox.Text = "c:\\";
+                
+
+                // reset the fields
+                //MessageBox.Show("Links have been written to the specified location.", "Operation(s) complete", MessageBoxButton.OK);
+                
             }
             catch (Exception)
             {

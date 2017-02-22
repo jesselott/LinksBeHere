@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LinksBeHere"
         mc:Ignorable="d"
-        Title="Links Found" Height="300" Width="300">
+        Title="Links Found" Height="500" Width="800">
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -20,13 +20,13 @@
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0" Grid.Column="1" Text="Hyperlinks Found" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <RichTextBox x:Name="linkList_rtb" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Stretch">
-            <FlowDocument>
-                <Paragraph>
-                    <Run Text=""/>
-                </Paragraph>
-            </FlowDocument>
-        </RichTextBox>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Grid.Column="1" Grid.Row="1" >
+            <RichTextBox x:Name="linkList_rtb">
+                <FlowDocument FlowDirection="LeftToRight" Name="flowDoc_rtb" PageWidth="{Binding ElementName=linkList_rtb, Path=ActualWidth}" >
+                </FlowDocument>
+            </RichTextBox>
+        </ScrollViewer>
+
 
     </Grid>
 
