@@ -101,7 +101,7 @@ namespace LinksBeHere
         {
             try
             {
-                //// call the helper class to utilize a streamreader / writer
+                // call the helper class to utilize a streamreader / writer
                 LinkFinder HyperFinder = new LinkFinder(fileLocTextBox.Text, outputLocTextBox.Text);
                 HyperFinder.FindLinks();
 
