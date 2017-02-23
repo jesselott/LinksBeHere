@@ -27,6 +27,10 @@
             </RichTextBox>
         </ScrollViewer>
 
+        <Button Name="testerBtn" Grid.Column="1" Grid.Row="2" Click="testerBtn_Click" >
+            Test google title
+        </Button>
+
 
     </Grid>
 

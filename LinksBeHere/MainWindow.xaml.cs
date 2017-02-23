@@ -105,27 +105,24 @@ namespace LinksBeHere
                 LinkFinder HyperFinder = new LinkFinder(fileLocTextBox.Text, outputLocTextBox.Text);
                 HyperFinder.FindLinks();
 
-                // instantiate and open the LinksFound window
+                // instantiate the LinksFound window
                 LinksFound linksFound = new LinksFound();
                 linksFound.Owner = this;
                 
-
+                // create a run for each link found
                 foreach (var item in HyperFinder.listOfLinks)
                 {
                     linksFound.linkList_rtb.Document.Blocks.Add(new Paragraph(new Run($"{item}")));
                 }
 
+                // open the window
                 linksFound.ShowDialog();
 
                 // reset the text fields
                 // TODO: put this in a separate button and method
                 outputLocTextBox.Text = "c:\\";
                 fileLocTextBox.Text = "c:\\";
-                
-
-                // reset the fields
-                //MessageBox.Show("Links have been written to the specified location.", "Operation(s) complete", MessageBoxButton.OK);
-                
+                                
             }
             catch (Exception)
             {

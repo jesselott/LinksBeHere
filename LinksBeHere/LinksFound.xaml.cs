@@ -23,5 +23,12 @@ namespace LinksBeHere
         {
             InitializeComponent();
         }
+
+        private void testerBtn_Click(object sender, RoutedEventArgs e)
+        {
+            LinkFinder foundLinksLF = new LinkFinder();
+            linkList_rtb.Document.Blocks.Add(
+                new Paragraph(new Run("Description: " + foundLinksLF.getLinkTitle("https://www.google.com"))));
+        }
     }
 }

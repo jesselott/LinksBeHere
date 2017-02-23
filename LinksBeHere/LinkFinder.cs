@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Net;
+using System.Net.Http;
 
 namespace LinksBeHere
 {
@@ -39,6 +41,7 @@ namespace LinksBeHere
             }
         }
 
+
         // list to store the matches
         public List<string> listOfLinks = new List<string>();
 
@@ -59,12 +62,29 @@ namespace LinksBeHere
             }
             
         }
+        
+        // go get images and titles
+        public string getLinkTitle(string input)
+        {
+            WebClient retriever = new WebClient();
+            string source = retriever.DownloadString(input);
+            string title = Regex.Match(source,
+                @"\<title\b[^>]*\>\s*(?<Title>[\s\S]*?)\</title\>",
+                RegexOptions.IgnoreCase).Groups["Title"].Value;
+            retriever.Dispose();
+            return title;
+        }
 
         // constructor(s)
         public LinkFinder(string readPath, string writePath)
         {
             this.linkReadPath = readPath;
             this.linkWritePath = writePath;
+        }
+
+        public LinkFinder()
+        {
+
         }
     }
 }
