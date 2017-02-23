@@ -3,7 +3,7 @@ A desktop application to find any hyperlinks that are given in a .txt document a
 
 ![LinkFinder Image](http://i.imgur.com/TXmwE0q.png)
 
-### Most Recent Branch: Master
+### Most Recent Branch: metaGrabber
 
 In one of my classes we have a group skype chat where we talk smack and share resources. A lot of those resources are lost in the void as soon as the conversation continues. This is a tool to remedy that.
 
