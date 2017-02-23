@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Net;
 using System.Net.Http;
+using HtmlAgilityPack;
 
 namespace LinksBeHere
 {
@@ -73,6 +74,24 @@ namespace LinksBeHere
                 RegexOptions.IgnoreCase).Groups["Title"].Value;
             retriever.Dispose();
             return title;
+        }
+
+        public string getLinkDescription(string input)
+        {
+            WebClient retriever = new WebClient();
+            string source = retriever.DownloadString(input);
+            string description = "";
+
+            HtmlDocument doc = new HtmlDocument();
+            doc.LoadHtml(source);
+            HtmlNode descriptNode =  doc.DocumentNode.SelectSingleNode("//meta[@name='description']");
+            if (descriptNode != null)
+            {
+                HtmlAttribute desc = descriptNode.Attributes["content"];
+                description = desc.Value;
+            }
+
+            return description;
         }
 
         // constructor(s)
