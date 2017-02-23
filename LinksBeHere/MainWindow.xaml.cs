@@ -112,7 +112,25 @@ namespace LinksBeHere
                 // create a run for each link found
                 foreach (var item in HyperFinder.listOfLinks)
                 {
-                    linksFound.linkList_rtb.Document.Blocks.Add(new Paragraph(new Run($"{item}")));
+                    try
+                    {
+                        linksFound.linkList_rtb.Document.Blocks.Add(new Paragraph(new Run($"{item}")));
+                        string newDescription = HyperFinder.getLinkDescription($"{item}");
+                        if (newDescription != "")
+                        {
+                            linksFound.linkList_rtb.Document.Blocks.Add(new Paragraph(new Run("URL Description: " + newDescription + "\n")));
+                        }
+                        else
+                        {
+                            linksFound.linkList_rtb.Document.Blocks.Add(new Paragraph(new Run("Description not found\n")));
+                        }
+                        
+                    }
+                    catch (System.Net.WebException)
+                    {
+                        linksFound.linkList_rtb.Document.Blocks.Add(new Paragraph(new Run("Description unavailable. Access was denied.\n")));
+                    }
+                    
                 }
 
                 // open the window
@@ -124,9 +142,11 @@ namespace LinksBeHere
                 fileLocTextBox.Text = "c:\\";
                                 
             }
+
+
             catch (Exception)
             {
-                MessageBox.Show("Something went wrong. Pleae enter a valid file path for both entries.", "Oops!", MessageBoxButton.OK);
+                MessageBox.Show("Something went wrong. Please try again.", "Oops!", MessageBoxButton.OK);
                 outputLocTextBox.Text = "c:\\";
                 fileLocTextBox.Text = "c:\\";
             }           

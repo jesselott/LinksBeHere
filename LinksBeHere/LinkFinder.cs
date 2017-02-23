@@ -79,11 +79,11 @@ namespace LinksBeHere
         public string getLinkDescription(string input)
         {
             WebClient retriever = new WebClient();
-            string source = retriever.DownloadString(input);
+            string source =  retriever.DownloadString(input);
             string description = "";
 
             HtmlDocument doc = new HtmlDocument();
-            doc.LoadHtml(source);
+            doc.Load(retriever.OpenRead(input));
             HtmlNode descriptNode =  doc.DocumentNode.SelectSingleNode("//meta[@name='description']");
             if (descriptNode != null)
             {
