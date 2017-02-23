@@ -122,7 +122,15 @@ namespace LinksBeHere
                         }
                         else
                         {
-                            linksFound.linkList_rtb.Document.Blocks.Add(new Paragraph(new Run("Description not found\n")));
+                            // since there was no description, look for a title
+                            linksFound.linkList_rtb.Document.Blocks.Add(new Paragraph(new Run("Description not found")));
+                            string newTitle = HyperFinder.getLinkTitle($"{item}");
+                            // if it is there, then add it to the list. if not, then no big deal.
+                            if (newTitle != "")
+                            {
+                                linksFound.linkList_rtb.Document.Blocks.Add(new Paragraph(new Run("URL Title: " + newTitle)));
+                            }
+                            linksFound.linkList_rtb.Document.Blocks.Add(new Paragraph(new Run("\n")));
                         }
                         
                     }

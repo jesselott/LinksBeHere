@@ -90,7 +90,7 @@ namespace LinksBeHere
                 HtmlAttribute desc = descriptNode.Attributes["content"];
                 description = desc.Value;
             }
-
+            retriever.Dispose();
             return description;
         }
 
