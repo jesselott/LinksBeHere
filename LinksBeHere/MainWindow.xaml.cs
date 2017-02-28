@@ -105,14 +105,14 @@ namespace LinksBeHere
 
         private void hyperLinkFinderBtn_Click(object sender, RoutedEventArgs e)
         {
+            LinksFound linksFound = new LinksFound();
+            linksFound.Owner = this;
+
             try
             {
                 LinkFinder HyperFinder = new LinkFinder(fileLocTextBox.Text, outputLocTextBox.Text);
                 HyperFinder.FindLinks();
-                LinksFound linksFound = new LinksFound();
-                linksFound.Owner = this;
                 
-                // create a run for each link found
                 foreach (var item in HyperFinder.listOfLinks)
                 {
                     try
@@ -123,24 +123,36 @@ namespace LinksBeHere
                     {
                         linksFound.linkList_rtb.Document.Blocks.Add(new Paragraph(new Run("Description unavailable. Access was denied.\n")));
                     }
-                    
                 }
-
-                linksFound.ShowDialog();
-                resetTextBtn_Click(resetTextBtn);
             }
 
             catch (Exception)
             {
                 MessageBox.Show("Something went wrong. Please try again.", "Oops!", MessageBoxButton.OK);
-                resetTextBtn_Click(resetTextBtn);
-            }           
+                resetText();
+            }
+
+            // TODO: Make it so this window doesn't 'lock' focus
+            openNewWindow(linksFound);
         }
 
-        private void resetTextBtn_Click(object sender)
+        private void resetTextBtn_Click(object sender, RoutedEventArgs e)
+        {
+            resetText();
+        }
+
+        private void openNewWindow(LinksFound windowToOpen)
+        {
+            windowToOpen.ShowDialog();
+            resetText();
+        }
+
+        private void resetText()
         {
             outputLocTextBox.Text = "c:\\";
             fileLocTextBox.Text = "c:\\";
         }
+
+        
     }
 }
