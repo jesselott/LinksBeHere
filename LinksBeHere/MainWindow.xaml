@@ -55,9 +55,10 @@
 
         </Grid>
 
-        
+        <Button Name="resetTextBtn" Grid.Row="2" Grid.Column="1" Margin="15" Content="Reset Location Fields" Click="resetTextBtn_Click">
+        </Button>
 
-        
+
 
 
 

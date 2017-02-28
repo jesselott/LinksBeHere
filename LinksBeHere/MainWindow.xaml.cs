@@ -26,6 +26,7 @@ namespace LinksBeHere
             InitializeComponent();
         }
 
+        #region text Changing Depending On Focus
         private void outputLocTextBox_GotFocus(object sender, RoutedEventArgs e)
         {
             if(outputLocTextBox.Text == "c:\\")
@@ -59,6 +60,9 @@ namespace LinksBeHere
             }
         }
 
+        #endregion
+
+        #region hovering over the helper text
         private void helperTextBlock_MouseEnter(object sender, MouseEventArgs e)
         {
             helperTextBlock.Foreground = new SolidColorBrush(Colors.Blue);
@@ -68,6 +72,8 @@ namespace LinksBeHere
         {
             helperTextBlock.Foreground = new SolidColorBrush(Colors.Black);
         }
+
+        #endregion
 
         private void helperTextBlock_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -101,11 +107,8 @@ namespace LinksBeHere
         {
             try
             {
-                // call the helper class to utilize a streamreader / writer
                 LinkFinder HyperFinder = new LinkFinder(fileLocTextBox.Text, outputLocTextBox.Text);
                 HyperFinder.FindLinks();
-
-                // instantiate the LinksFound window
                 LinksFound linksFound = new LinksFound();
                 linksFound.Owner = this;
                 
@@ -123,24 +126,21 @@ namespace LinksBeHere
                     
                 }
 
-                // open the window
                 linksFound.ShowDialog();
-
-                // reset the text fields
-                // TODO: put this in a separate button and method
-                outputLocTextBox.Text = "c:\\";
-                fileLocTextBox.Text = "c:\\";
-                                
+                resetTextBtn_Click(resetTextBtn);
             }
-
 
             catch (Exception)
             {
                 MessageBox.Show("Something went wrong. Please try again.", "Oops!", MessageBoxButton.OK);
-                outputLocTextBox.Text = "c:\\";
-                fileLocTextBox.Text = "c:\\";
+                resetTextBtn_Click(resetTextBtn);
             }           
-            
+        }
+
+        private void resetTextBtn_Click(object sender)
+        {
+            outputLocTextBox.Text = "c:\\";
+            fileLocTextBox.Text = "c:\\";
         }
     }
 }
