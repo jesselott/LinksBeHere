@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Net.Http;
 using HtmlAgilityPack;
+using System.Windows.Documents;
 
 namespace LinksBeHere
 {
@@ -92,6 +93,29 @@ namespace LinksBeHere
             }
             retriever.Dispose();
             return description;
+        }
+
+        // populate the rich text box
+        public void populateTheRichBoxWithLinks(LinksFound linksFound, string inputItem, LinkFinder HyperFinder)
+        {
+            linksFound.linkList_rtb.Document.Blocks.Add(new Paragraph(new Run($"{inputItem}")));
+            string newDescription = HyperFinder.getLinkDescription($"{inputItem}");
+            if (newDescription != "")
+            {
+                linksFound.linkList_rtb.Document.Blocks.Add(new Paragraph(new Run("URL Description: " + newDescription + "\n")));
+            }
+            else
+            {
+                // since there was no description, look for a title
+                linksFound.linkList_rtb.Document.Blocks.Add(new Paragraph(new Run("Description not found")));
+                string newTitle = HyperFinder.getLinkTitle($"{inputItem}");
+                // if it is there, then add it to the list. if not, then no big deal.
+                if (newTitle != "")
+                {
+                    linksFound.linkList_rtb.Document.Blocks.Add(new Paragraph(new Run("URL Title: " + newTitle)));
+                }
+                linksFound.linkList_rtb.Document.Blocks.Add(new Paragraph(new Run("\n")));
+            }
         }
 
         // constructor(s)
