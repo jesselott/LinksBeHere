@@ -14,11 +14,13 @@ namespace LinksBeHere
 {
     class LinkFinder
     {
-        // fields
+        #region fields
         private string linkReadPath = "";
         private string linkWritePath = "";
+        public List<string> listOfLinks = new List<string>();
+        #endregion
 
-        // properties
+        #region properties
         public string LinkReadPath
         {
             get
@@ -42,18 +44,15 @@ namespace LinksBeHere
                 this.linkWritePath = LinkWritePath;
             }
         }
+        #endregion
 
-
-        // list to store the matches
-        public List<string> listOfLinks = new List<string>();
-
-        // Method(s)
+        #region methods
         public void FindLinks()
         {
+            // TODO: make writing link to txt file optional
             StreamReader textReader = new StreamReader(linkReadPath);
             StreamWriter linkFinder = new StreamWriter(linkWritePath);
             
-
             Regex urlFinder = new Regex(@"((https?|ftp|file)\://|www.)[A-Za-z0-9\.\-]+(/[A-Za-z0-9\?\&\=;\+!'\(\)\*\-\._~%]*)*", RegexOptions.IgnoreCase);
             MatchCollection links = urlFinder.Matches(textReader.ReadToEnd());
             foreach (Match match in links)
@@ -62,40 +61,33 @@ namespace LinksBeHere
                 linkFinder.WriteLine(match.ToString(), linkWritePath);
                 linkFinder.Flush();
             }
-            
         }
         
-        // go get images and titles
         public string getLinkTitle(string input)
         {
-            WebClient retriever = new WebClient();
-            string source = retriever.DownloadString(input);
-            string title = Regex.Match(source,
-                @"\<title\b[^>]*\>\s*(?<Title>[\s\S]*?)\</title\>",
-                RegexOptions.IgnoreCase).Groups["Title"].Value;
-            retriever.Dispose();
-            return title;
+            using (WebClient retriever = new WebClient())
+            {
+                string source = retriever.DownloadString(input);
+                string title = Regex.Match(source,
+                    @"\<title\b[^>]*\>\s*(?<Title>[\s\S]*?)\</title\>",
+                    RegexOptions.IgnoreCase).Groups["Title"].Value;
+                return title;
+            }            
         }
 
         public string getLinkDescription(string input)
         {
-            WebClient retriever = new WebClient();
-            string source =  retriever.DownloadString(input);
             string description = "";
-
             HtmlDocument doc = new HtmlDocument();
-            doc.Load(retriever.OpenRead(input));
-            HtmlNode descriptNode =  doc.DocumentNode.SelectSingleNode("//meta[@name='description']");
-            if (descriptNode != null)
+            HtmlNode descriptionNode =  doc.DocumentNode.SelectSingleNode("//meta[@name='description']");
+            if (descriptionNode != null)
             {
-                HtmlAttribute desc = descriptNode.Attributes["content"];
-                description = desc.Value;
+                HtmlAttribute descriptionNodeText = descriptionNode.Attributes["content"];
+                description = descriptionNodeText.Value;
             }
-            retriever.Dispose();
             return description;
         }
 
-        // populate the rich text box
         public void populateTheRichBoxWithLinks(LinksFound linksFound, string inputItem, LinkFinder HyperFinder)
         {
             linksFound.linkList_rtb.Document.Blocks.Add(new Paragraph(new Run($"{inputItem}")));
@@ -106,10 +98,9 @@ namespace LinksBeHere
             }
             else
             {
-                // since there was no description, look for a title
                 linksFound.linkList_rtb.Document.Blocks.Add(new Paragraph(new Run("Description not found")));
                 string newTitle = HyperFinder.getLinkTitle($"{inputItem}");
-                // if it is there, then add it to the list. if not, then no big deal.
+
                 if (newTitle != "")
                 {
                     linksFound.linkList_rtb.Document.Blocks.Add(new Paragraph(new Run("URL Title: " + newTitle)));
@@ -117,6 +108,7 @@ namespace LinksBeHere
                 linksFound.linkList_rtb.Document.Blocks.Add(new Paragraph(new Run("\n")));
             }
         }
+        #endregion
 
         // constructor(s)
         public LinkFinder(string readPath, string writePath)

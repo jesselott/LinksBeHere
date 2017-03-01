@@ -26,6 +26,8 @@ namespace LinksBeHere
             InitializeComponent();
         }
 
+        // TODO: Make it so any window that is clicked / gains focus will come to top of window stack
+
         #region text Changing Depending On Focus
         private void outputLocTextBox_GotFocus(object sender, RoutedEventArgs e)
         {
@@ -132,7 +134,6 @@ namespace LinksBeHere
                 resetText();
             }
 
-            // TODO: Make it so this window doesn't 'lock' focus
             openNewWindow(linksFound);
         }
 
@@ -143,7 +144,7 @@ namespace LinksBeHere
 
         private void openNewWindow(LinksFound windowToOpen)
         {
-            windowToOpen.ShowDialog();
+            windowToOpen.Show();
             resetText();
         }
 
@@ -153,6 +154,9 @@ namespace LinksBeHere
             fileLocTextBox.Text = "c:\\";
         }
 
-        
+        private void Window_GotFocus(object sender, RoutedEventArgs e)
+        {
+            
+        }
     }
 }
