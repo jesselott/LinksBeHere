@@ -105,6 +105,7 @@ namespace LinksBeHere
             }
         }
 
+        // TODO: BUG - Something is making this hang and throw an error when passing in large text file
         private void hyperLinkFinderBtn_Click(object sender, RoutedEventArgs e)
         {
             LinksFound linksFound = new LinksFound();
@@ -114,24 +115,48 @@ namespace LinksBeHere
             {
                 LinkFinder HyperFinder = new LinkFinder(fileLocTextBox.Text, outputLocTextBox.Text);
                 HyperFinder.FindLinks();
-                
-                foreach (var item in HyperFinder.listOfLinks)
+                while(HyperFinder.listOfLinks.Count > 0)
                 {
+                    //foreach (var item in HyperFinder.listOfLinks)
+                    //{
+                    //    try
+                    //    {
+                    //        HyperFinder.populateTheRichBoxWithLinks(linksFound, item, HyperFinder);
+                    //    }
+                    //    catch (System.Net.WebException)
+                    //    {
+                    //        linksFound.linkList_rtb.Document.Blocks.Add(new Paragraph(new Run("Access was denied.\n")));
+                    //    }
+                    //}
+
+                    int i = 0;
                     try
                     {
-                        HyperFinder.populateTheRichBoxWithLinks(linksFound, item, HyperFinder);
+                        HyperFinder.populateTheRichBoxWithLinks(linksFound, HyperFinder.listOfLinks[i], HyperFinder);
+                        // TODO: Remove this after debug
+                        if (HyperFinder.listOfLinks.Count < 801)
+                        {
+                            Console.WriteLine("The count is: {0}", HyperFinder.listOfLinks.Count);
+                        }
+                        if (HyperFinder.listOfLinks.Count == 0)
+                        {
+                            Console.WriteLine("The count is 0");
+                        }
                     }
                     catch (System.Net.WebException)
                     {
-                        linksFound.linkList_rtb.Document.Blocks.Add(new Paragraph(new Run("Description unavailable. Access was denied.\n")));
+                        linksFound.linkList_rtb.Document.Blocks.Add(new Paragraph(new Run("Access was denied.\n")));
+                        HyperFinder.removeLinkFromList(HyperFinder.listOfLinks[0]);
                     }
                 }
-            }
+             }
 
-            catch (Exception)
+            catch (Exception error)
             {
                 MessageBox.Show("Something went wrong. Please try again.", "Oops!", MessageBoxButton.OK);
                 resetText();
+                Console.WriteLine(error);
+
             }
 
             openNewWindow(linksFound);
