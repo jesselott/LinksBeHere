@@ -65,30 +65,37 @@ namespace LinksBeHere
                 }
             }
         }
+
+        // TODO: get html text for getLinkTitle and getLinkDescription
         
         public string getLinkTitle(string input)
         {
             using (WebClient retriever = new WebClient())
             {
+                retriever.Proxy = null;
                 string Title = "";
                 HtmlDocument doc = new HtmlDocument();
-                doc.LoadHtml(retriever.DownloadString(input));
+                string source = retriever.DownloadString(input);
+                doc.LoadHtml(source);
                 HtmlNode titleNode = doc.DocumentNode.SelectSingleNode("//head/title");
                 if (titleNode != null)
                 {
                     Title = titleNode.InnerText;
                 }
                 return Title;
-            }
+            }            
         }
         
         public string getLinkDescription(string input)
         {
             using (WebClient retriever = new WebClient())
             {
+
+                retriever.Proxy = null;
                 string description = "";
                 HtmlDocument doc = new HtmlDocument();
-                doc.LoadHtml(retriever.DownloadString(input));
+                string source = retriever.DownloadString(input);
+                doc.LoadHtml(source);
                 HtmlNode descriptionNode = doc.DocumentNode.SelectSingleNode("//meta[@name='description']");
                 if (descriptionNode != null)
                 {
