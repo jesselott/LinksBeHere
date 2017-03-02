@@ -105,7 +105,6 @@ namespace LinksBeHere
             }
         }
 
-        // TODO: BUG - Something is making this hang and throw an error when passing in large text file
         private void hyperLinkFinderBtn_Click(object sender, RoutedEventArgs e)
         {
             LinksFound linksFound = new LinksFound();
@@ -117,30 +116,18 @@ namespace LinksBeHere
                 HyperFinder.FindLinks();
                 while(HyperFinder.listOfLinks.Count > 0)
                 {
-                    //foreach (var item in HyperFinder.listOfLinks)
-                    //{
-                    //    try
-                    //    {
-                    //        HyperFinder.populateTheRichBoxWithLinks(linksFound, item, HyperFinder);
-                    //    }
-                    //    catch (System.Net.WebException)
-                    //    {
-                    //        linksFound.linkList_rtb.Document.Blocks.Add(new Paragraph(new Run("Access was denied.\n")));
-                    //    }
-                    //}
-
                     int i = 0;
                     try
                     {
                         HyperFinder.populateTheRichBoxWithLinks(linksFound, HyperFinder.listOfLinks[i], HyperFinder);
-                        // TODO: Remove this after debug
-                        if (HyperFinder.listOfLinks.Count < 801)
+                        // TODO: Make this into a progress bar
+                        if (HyperFinder.listOfLinks.Count > 0)
                         {
-                            Console.WriteLine("The count is: {0}", HyperFinder.listOfLinks.Count);
+                            Console.WriteLine("Websites left to parse: {0}", HyperFinder.listOfLinks.Count);
                         }
                         if (HyperFinder.listOfLinks.Count == 0)
                         {
-                            Console.WriteLine("The count is 0");
+                            MessageBox.Show("Operation complete", "Done", MessageBoxButton.OK);
                         }
                     }
                     catch (System.Net.WebException)

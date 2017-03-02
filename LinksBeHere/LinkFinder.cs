@@ -65,8 +65,6 @@ namespace LinksBeHere
                 }
             }
         }
-
-        // TODO: get html text for getLinkTitle and getLinkDescription
         
         public string getLinkTitle(string input)
         {
