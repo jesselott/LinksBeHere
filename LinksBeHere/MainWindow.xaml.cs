@@ -26,6 +26,9 @@ namespace LinksBeHere
             InitializeComponent();
         }
 
+        // TODO: Make it so any window that is clicked / gains focus will come to top of window stack
+
+        #region text Changing Depending On Focus
         private void outputLocTextBox_GotFocus(object sender, RoutedEventArgs e)
         {
             if(outputLocTextBox.Text == "c:\\")
@@ -59,6 +62,9 @@ namespace LinksBeHere
             }
         }
 
+        #endregion
+
+        #region hovering over the helper text
         private void helperTextBlock_MouseEnter(object sender, MouseEventArgs e)
         {
             helperTextBlock.Foreground = new SolidColorBrush(Colors.Blue);
@@ -68,6 +74,8 @@ namespace LinksBeHere
         {
             helperTextBlock.Foreground = new SolidColorBrush(Colors.Black);
         }
+
+        #endregion
 
         private void helperTextBlock_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -99,37 +107,67 @@ namespace LinksBeHere
 
         private void hyperLinkFinderBtn_Click(object sender, RoutedEventArgs e)
         {
+            LinksFound linksFound = new LinksFound();
+            linksFound.Owner = this;
+
             try
             {
-                // call the helper class to utilize a streamreader / writer
                 LinkFinder HyperFinder = new LinkFinder(fileLocTextBox.Text, outputLocTextBox.Text);
                 HyperFinder.FindLinks();
-
-                // instantiate the LinksFound window
-                LinksFound linksFound = new LinksFound();
-                linksFound.Owner = this;
-                
-                // create a run for each link found
-                foreach (var item in HyperFinder.listOfLinks)
+                while(HyperFinder.listOfLinks.Count > 0)
                 {
-                    linksFound.linkList_rtb.Document.Blocks.Add(new Paragraph(new Run($"{item}")));
+                    int i = 0;
+                    try
+                    {
+                        HyperFinder.populateTheRichBoxWithLinks(linksFound, HyperFinder.listOfLinks[i], HyperFinder);
+                        // TODO: Make this into a progress bar
+                        if (HyperFinder.listOfLinks.Count > 0)
+                        {
+                            Console.WriteLine("Websites left to parse: {0}", HyperFinder.listOfLinks.Count);
+                        }
+                        if (HyperFinder.listOfLinks.Count == 0)
+                        {
+                            MessageBox.Show("Operation complete", "Done", MessageBoxButton.OK);
+                        }
+                    }
+                    catch (System.Net.WebException)
+                    {
+                        linksFound.linkList_rtb.Document.Blocks.Add(new Paragraph(new Run("Access was denied.\n")));
+                        HyperFinder.removeLinkFromList(HyperFinder.listOfLinks[0]);
+                    }
                 }
+             }
 
-                // open the window
-                linksFound.ShowDialog();
-
-                // reset the text fields
-                // TODO: put this in a separate button and method
-                outputLocTextBox.Text = "c:\\";
-                fileLocTextBox.Text = "c:\\";
-                                
-            }
-            catch (Exception)
+            catch (Exception error)
             {
-                MessageBox.Show("Something went wrong. Pleae enter a valid file path for both entries.", "Oops!", MessageBoxButton.OK);
-                outputLocTextBox.Text = "c:\\";
-                fileLocTextBox.Text = "c:\\";
-            }           
+                MessageBox.Show("Something went wrong. Please try again.", "Oops!", MessageBoxButton.OK);
+                resetText();
+                Console.WriteLine(error);
+
+            }
+
+            openNewWindow(linksFound);
+        }
+
+        private void resetTextBtn_Click(object sender, RoutedEventArgs e)
+        {
+            resetText();
+        }
+
+        private void openNewWindow(LinksFound windowToOpen)
+        {
+            windowToOpen.Show();
+            resetText();
+        }
+
+        private void resetText()
+        {
+            outputLocTextBox.Text = "c:\\";
+            fileLocTextBox.Text = "c:\\";
+        }
+
+        private void Window_GotFocus(object sender, RoutedEventArgs e)
+        {
             
         }
     }

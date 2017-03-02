@@ -23,14 +23,14 @@
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Grid.Column="1" Grid.Row="1" >
             <RichTextBox x:Name="linkList_rtb">
                 <FlowDocument FlowDirection="LeftToRight" Name="flowDoc_rtb" PageWidth="{Binding ElementName=linkList_rtb, Path=ActualWidth}" >
+                    <FlowDocument.Resources>
+                        <Style TargetType="{x:Type Paragraph}">
+                            <Setter Property="Margin" Value="0" />
+                        </Style>
+                    </FlowDocument.Resources>
                 </FlowDocument>
             </RichTextBox>
         </ScrollViewer>
-
-        <Button Name="testerBtn" Grid.Column="1" Grid.Row="2" Click="testerBtn_Click" >
-            Test google title
-        </Button>
-
 
     </Grid>
 
