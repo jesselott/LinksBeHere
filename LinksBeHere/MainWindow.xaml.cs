@@ -166,9 +166,16 @@ namespace LinksBeHere
             fileLocTextBox.Text = "c:\\";
         }
 
-        private void Window_GotFocus(object sender, RoutedEventArgs e)
+        internal void output_cb_Checked(object sender, RoutedEventArgs e)
         {
-            
+                outputLocation_sp.Visibility = Visibility.Visible;
+                outLocatorBtn.Visibility = Visibility.Visible;
+        }
+
+        private void output_cb_Unchecked(object sender, RoutedEventArgs e)
+        {
+            outputLocation_sp.Visibility = Visibility.Hidden;
+            outLocatorBtn.Visibility = Visibility.Hidden;
         }
     }
 }

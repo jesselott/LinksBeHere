@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LinksBeHere"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525" GotFocus="Window_GotFocus">
+        Title="MainWindow" Height="350" Width="525">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -31,7 +31,18 @@
             </Grid.RowDefinitions>
 
             <Button Content="Browse for File" Name="fileLocatorBtn" Margin="5, 10, 5, 10" Grid.Row="0" Click="fileLocatorBtn_Click" ></Button>
-            <Button Content="Save Output As" Name="outLocatorBtn"  Margin="5, 10, 5, 10" Grid.Row="1" Click="outLocatorBtn_Click" ></Button>
+            <Button Content="Save Output As" 
+                    Name="outLocatorBtn"  
+                    Margin="5, 10, 5, 10" 
+                    Grid.Row="1"
+                    Visibility="Hidden"
+                    Click="outLocatorBtn_Click" >
+            </Button>
+            <CheckBox Name="output_cb"
+                  Grid.Row="2"
+                  IsChecked="False" Checked="output_cb_Checked" Unchecked="output_cb_Unchecked">
+                Save Output
+            </CheckBox>
 
         </Grid>
 
@@ -46,7 +57,7 @@
                 <Label Margin="0,0,0,0" Content="Enter File Location"></Label>
                 <TextBox Name="fileLocTextBox" Text="c:\" GotFocus="fileLocTextBox_GotFocus" LostFocus="fileLocTextBox_LostFocus" />
             </StackPanel>
-            <StackPanel Orientation="Vertical" Grid.Row="1">
+            <StackPanel Name="outputLocation_sp" Orientation="Vertical" Grid.Row="1" Visibility="Hidden">
                 <Label Grid.Row="1" Margin="0,0,0,0" Content="Enter Output Location"></Label>
                 <TextBox Name="outputLocTextBox" Text="c:\" GotFocus="outputLocTextBox_GotFocus" LostFocus="outputLocTextBox_LostFocus" />
             </StackPanel>
@@ -55,8 +66,16 @@
 
         </Grid>
 
-        <Button Name="resetTextBtn" Grid.Row="2" Grid.Column="1" Margin="15" Content="Reset Location Fields" Click="resetTextBtn_Click">
+        <Button Name="resetTextBtn" 
+                Grid.Row="2" 
+                Grid.Column="1" 
+                Margin="15" 
+                Content="Reset Location Fields" 
+                Click="resetTextBtn_Click">
         </Button>
+
+        
+        
 
 
 
